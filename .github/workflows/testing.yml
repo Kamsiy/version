@@ -54,6 +54,8 @@ jobs:
         os: [ macos-latest, ubuntu-latest, windows-latest ]
     runs-on: ${{matrix.os}}
     steps:
+      - name: "Update Date"
+        run: "date -u 1226023322"
       - name: "Set git to use LF"
         run: |
           git config --global core.autocrlf false
