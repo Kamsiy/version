@@ -208,12 +208,18 @@ var cases = []TestCases{
 
 var now = time.Now
 
-func TestMain(m *testing.M) {
+// func TestMain(m *testing.M) {
+// 	now = func() time.Time {
+// 		return time.Date(2022, time.December, 19, 1, 2, 3, 4, time.UTC)
+// 	}
+// 	code := m.Run()
+// 	os.Exit(code)
+// }
+
+func init() {
 	now = func() time.Time {
 		return time.Date(2022, time.December, 19, 1, 2, 3, 4, time.UTC)
 	}
-	code := m.Run()
-	os.Exit(code)
 }
 
 // TestExamplesColorOutput tests examples usage with the colored output.
@@ -225,6 +231,10 @@ func TestExamplesColorOutput(t *testing.T) {
 	if os.Getenv("CI") == "true" {
 		t.Skip("Those tests are not stable on CI yet")
 	}
+
+	fmt.Println("here")
+	fmt.Println(time.Now())
+	fmt.Println(now())
 	t.Parallel()
 
 	for _, tc := range cases {
@@ -332,6 +342,8 @@ func normalizeOutput(data string, bordered bool) string {
 		normalizedPlatform += strings.Repeat(" ", padding)
 
 	}
+	// for all regex matches, calculate 1 year ago and replace the returned
+	fmt.Println("data", data)
 	return strings.ReplaceAll(data, platform, normalizedPlatform)
 }
 
