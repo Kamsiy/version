@@ -206,6 +206,16 @@ var cases = []TestCases{
 	},
 }
 
+var now = time.Now
+
+func TestMain(m *testing.M) {
+	now = func() time.Time {
+		return time.Date(2022, time.December, 19, 1, 2, 3, 4, time.UTC)
+	}
+	code := m.Run()
+	os.Exit(code)
+}
+
 // TestExamplesColorOutput tests examples usage with the colored output.
 //
 // This test is based on golden file. To update golden file, run:
@@ -220,7 +230,7 @@ func TestExamplesColorOutput(t *testing.T) {
 	for _, tc := range cases {
 		tc := tc
 		t.Run(tc.name, func(t *testing.T) {
-			//t.Parallel() goexpect doesn't work in multi thread
+			// t.Parallel() goexpect doesn't work in multi thread
 
 			// given
 			binaryPath := buildBinaryAllLDFlags(t, tc.dir)
@@ -344,7 +354,7 @@ func TestResolvesDefaultFields(t *testing.T) {
 	t.Parallel()
 
 	// given
-	var bin = "auto-resolved-fields"
+	bin := "auto-resolved-fields"
 	if runtime.GOOS == "windows" {
 		bin += ".exe"
 	}
@@ -384,6 +394,7 @@ func getGitDetails(t *testing.T) (string, string, string) {
 
 	return fmt.Sprintf("%.7s", commit), date, dirty
 }
+
 func fmtBool(in bool) string {
 	if in {
 		return "yes"
