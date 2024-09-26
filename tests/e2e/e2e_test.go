@@ -220,7 +220,7 @@ func TestExamplesColorOutput(t *testing.T) {
 	for _, tc := range cases {
 		tc := tc
 		t.Run(tc.name, func(t *testing.T) {
-			//t.Parallel() goexpect doesn't work in multi thread
+			// t.Parallel() goexpect doesn't work in multi thread
 
 			// given
 			binaryPath := buildBinaryAllLDFlags(t, tc.dir)
@@ -322,6 +322,7 @@ func normalizeOutput(data string, bordered bool) string {
 		normalizedPlatform += strings.Repeat(" ", padding)
 
 	}
+	// for all regex matches, calculate 1 year ago and replace the returned
 	return strings.ReplaceAll(data, platform, normalizedPlatform)
 }
 
@@ -344,7 +345,7 @@ func TestResolvesDefaultFields(t *testing.T) {
 	t.Parallel()
 
 	// given
-	var bin = "auto-resolved-fields"
+	bin := "auto-resolved-fields"
 	if runtime.GOOS == "windows" {
 		bin += ".exe"
 	}
@@ -384,6 +385,7 @@ func getGitDetails(t *testing.T) (string, string, string) {
 
 	return fmt.Sprintf("%.7s", commit), date, dirty
 }
+
 func fmtBool(in bool) string {
 	if in {
 		return "yes"
